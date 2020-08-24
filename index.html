@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amigos</title>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      img {
+        width: 100%;
+      }
+
+      .logged-out,
+      logged-in {
+        display: none;
+      }
+
+      #map {
+        width: 100%;
+        height: 640px;
+      }
+    </style>
+  </head>
+  <body class="bg-ligth">
+    <!-- Navbar de bootstrap -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">DLS EATS</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item logged-in">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#micuentamodal">Mi cuenta</a>
+          </li>
+          <li class="nav-item logged-in">
+            <a class="nav-link" href="#" id="salir">Salir</a>
+          </li>
+          <li class="nav-item logged-out">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#ingresarmodal">Ingresar</a>
+          </li>
+          <li class="nav-item logged-out">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#registrarmodal">Registrarse</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Modal ingresar-->
+    <div class="modal fade" id="ingresarmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ingresar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="" id="formaingresar">
+              <div class="row">
+                <div class="col-12 m-2">
+                  <input class="form-control" type="email" id="correo" placeholder="Escribe aqui tu correo" required />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 m-2">
+                  <input class="form-control" type="password" id="contrasena" placeholder="Escribe aqui tu contraseña" required />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 text-center">
+                  <button class="btn btn-primary">Ingresar</button>
+                  <p class="error text-danger"></p>
+                </div>
+              </div>
+            </form>
+
+            <div class="row">
+              <div class="col-12 text-center">
+                <span onclick="entrarGoogle()" class="btn btn-danger">Ingresar con Google</span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal registrar-->
+    <div class="modal fade" id="registrarmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Registrarse</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="" id="formaregistrar">
+              <div class="row">
+                <div class="col-12 m-2">
+                  <input class="form-control" type="text" id="rnombre" placeholder="Escribe aqui tu nombre" required />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 m-2">
+                  <input class="form-control" type="email" id="rcorreo" placeholder="Escribe aqui tu correo" required />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 m-2">
+                  <input class="form-control" type="password" id="rcontrasena" placeholder="Escribe aqui tu contraseña" required />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 m-2">
+                  <input class="form-control" type="number" step="any" id="rtelefono" placeholder="Escribe aqui tu teléfono" required />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 m-2">
+                  <input class="form-control" type="text" id="rdireccion" placeholder="Escribe aqui tu dirección" required />
+                </div>
+              </div>
+              <div class class="row">
+                <div class="col-12 text-center">
+                  <input type="submit" class="btn btn-primary" value="Registrarse" />
+                  <p class="error text-danger"></p>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal miCuenta-->
+    <div class="modal fade" id="micuentamodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Mi cuenta</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body datosdelacuenta"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenedor de comida -->
+    <div class="container">
+      <div class="row text-center" id="listadeplatillos"></div>
+    </div>
+
+    <!-- Contenedor del mapa -->
+    <div class="container logged-in">
+      <div class="row text-center" id="map">AQUI VA EL MAPA</div>
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyDaB3jmYQYhd4LP5p6Y315EWPntJ_jgU9A",
+        authDomain: "sistemasgeo2712.firebaseapp.com",
+        databaseURL: "https://sistemasgeo2712.firebaseio.com",
+        projectId: "sistemasgeo2712",
+        storageBucket: "sistemasgeo2712.appspot.com",
+        messagingSenderId: "877902782462",
+        appId: "1:877902782462:web:f9e17e363f80d09acb2aaf",
+        measurementId: "G-SYNBJXC2H8",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+    </script>
+    <script src="scripts/autoriazacion.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADjOfdGIg-7JiqjoTstMN9el4g-nLhxxA" async defer></script>
+  </body>
+</html>
