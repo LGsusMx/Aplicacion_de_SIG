@@ -43,7 +43,7 @@ const obtieneAmigos = (data) => {
         };
 
         informacion.setPosition(pos);
-        informacion.setContent(doc.data().nombre);
+        informacion.setContent(doc.data().nombre + '\n' + doc.data().coordenadas.lat +' , '+ doc.data().coordenadas.lng);
         informacion.open(map);
     });
 }
