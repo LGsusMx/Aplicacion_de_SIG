@@ -44,6 +44,7 @@ const obtieneAmigos = (data) => {
 
         informacion.setPosition(pos);
         informacion.setContent(doc.data().nombre + '\n' + doc.data().coordenadas.lat +' , '+ doc.data().coordenadas.lng);
+        informacion.setContent(doc.data().nombre+ +'<br>'+doc.data().coordenadas.lat +' , '+ doc.data().coordenadas.lng+"<br> <img height='50' width='50' src='https://i.pinimg.com/originals/a6/26/90/a62690a205dab3f19082b30a8b41f8bc.png'>");
         informacion.open(map);
     });
 }
